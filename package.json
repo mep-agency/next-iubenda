@@ -1,0 +1,53 @@
+{
+  "name": "@mep-agency/next-iubenda",
+  "version": "1.0.0-alpha0",
+  "private": false,
+  "description": "A React library for integrating Iubenda's cookie solution into Next.js projects",
+  "source": "src/index.tsx",
+  "main": "src/index.tsx",
+  "sideEffects": false,
+  "scripts": {
+    "lint": "eslint \"**/*.{ts,tsx,js}\" && prettier --check \"**/*.{ts,tsx,md,scss,css,js}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,md,scss,css,js}\""
+  },
+  "files": [
+    "src",
+    "LICENCE",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.tsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mep-agency/next-iubenda.git"
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "react",
+    "redirect",
+    "link",
+    "router"
+  ],
+  "author": "Marco Lipparini <developer@liarco.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mep-agency/next-iubenda/issues"
+  },
+  "peerDependencies": {
+    "next": ">= 13.0.0",
+    "react": ">= 18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "eslint": "8.43.0",
+    "eslint-config-next": "^13.4.7",
+    "eslint-config-prettier": "^8.8.0",
+    "next": "^13.4.7",
+    "prettier": "^2.8.8",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "^5.1.3"
+  }
+}
