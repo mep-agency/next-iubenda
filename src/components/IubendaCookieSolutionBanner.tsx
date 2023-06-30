@@ -236,17 +236,23 @@ const validateConfig = (config: IubendaCookieSolutionBannerConfigInterface): voi
 
   // TODO: Remove warnings about incomplete features...
   if (config.enableLgpd === true) {
-    console.warn('The support for LGPD is incomplete may not work properly. Please report any issues to help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues');
+    console.warn(
+      'The support for LGPD is incomplete may not work properly. Please report any issues to help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues',
+    );
   }
 
   if (config.enableUspr === true) {
-    console.warn('The support for the US State laws is incomplete may not work properly. Please report any issues help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues');
+    console.warn(
+      'The support for the US State laws is incomplete may not work properly. Please report any issues help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues',
+    );
   }
 
   if (config.enableTcf === true) {
-    console.warn('The support for the IAB Transparency and Consent Framework is incomplete may not work properly. Please report any issues help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues');
+    console.warn(
+      'The support for the IAB Transparency and Consent Framework is incomplete may not work properly. Please report any issues help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues',
+    );
   }
-}
+};
 
 interface Props {
   config: IubendaCookieSolutionBannerConfigInterface;
@@ -286,7 +292,11 @@ const IubendaCookieSolutionBanner = ({ config, version }: Props) => {
       {config.enableTcf === true ? (
         <>
           <Script key="iubenda_tcf" src={`//cdn.iubenda.com/cs/tcf${versionPath}/stub-v2.js`} type="text/javascript" />
-          <Script key="iubenda_safe_tcf" src={`//cdn.iubenda.com/cs/tcf${versionPath}/safe-tcf-v2.js`} type="text/javascript" />
+          <Script
+            key="iubenda_safe_tcf"
+            src={`//cdn.iubenda.com/cs/tcf${versionPath}/safe-tcf-v2.js`}
+            type="text/javascript"
+          />
         </>
       ) : (
         <></>

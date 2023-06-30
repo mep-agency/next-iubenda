@@ -67,11 +67,7 @@ Here is an example with the App Router:
 
 import './globals.css';
 import { Inter } from 'next/font/google';
-import {
-  IubendaProvider,
-  IubendaCookieSolutionBannerConfigInterface,
-  i18nDictionaries,
-} from '@mep-agency/next-iubenda';
+import { IubendaProvider, IubendaCookieSolutionBannerConfigInterface, i18nDictionaries } from '@mep-agency/next-iubenda';
 
 const inter = Inter({ subsets: ['latin'] });
 

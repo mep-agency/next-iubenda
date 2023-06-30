@@ -2,7 +2,10 @@
 
 import React, { createContext, ReactNode, useContext, useReducer } from 'react';
 
-import IubendaBanner, { BannerVersion, IubendaCookieSolutionBannerConfigInterface } from '../components/IubendaCookieSolutionBanner';
+import IubendaBanner, {
+  BannerVersion,
+  IubendaCookieSolutionBannerConfigInterface,
+} from '../components/IubendaCookieSolutionBanner';
 import { I18N_DEFAULT_LANG, I18nDictionaryInterface, i18nDictionaries } from '../i18n';
 
 interface Props {
@@ -119,7 +122,14 @@ export const useIubenda = () => {
   return useContext(IubendaContext);
 };
 
-export const IubendaProvider = ({ bannerConfig, bannerVersion, lang, fallbackLang, customI18nDictionaries, children }: Props) => {
+export const IubendaProvider = ({
+  bannerConfig,
+  bannerVersion,
+  lang,
+  fallbackLang,
+  customI18nDictionaries,
+  children,
+}: Props) => {
   const [userPreferences, dispatchUserPreferences] = useReducer(userPreferencesDispatcher, userPreferencesInitialState);
   const fallbackLangCode = fallbackLang ?? I18N_DEFAULT_LANG;
   const langCode = lang ?? fallbackLangCode;
