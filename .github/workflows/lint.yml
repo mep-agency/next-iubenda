@@ -1,4 +1,4 @@
-name: Automated linting
+name: Linting
 on:
   pull_request:
 
