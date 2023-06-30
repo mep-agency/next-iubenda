@@ -1,5 +1,10 @@
 # Next-Iubenda
 
+<span class="badge-lifecycle"><a href="https://github.com/mep-agency#lifecycle-policy" title="Check out our lifecycle stages"><img src="https://img.shields.io/badge/lifecycle-experimental-orange" alt="Project lifecyfle stage" /></a></span>
+<span class="badge-license"><a href="https://github.com/mep-agency/next-iubenda" title="View this project on GitHub"><img src="https://img.shields.io/github/license/mep-agency/next-iubenda" alt="Project license" /></a></span>
+<span class="badge-npmversion"><a href="https://www.npmjs.com/package/@mep-agency/next-iubenda" title="View this project on NPM"><img src="https://img.shields.io/npm/v/%40mep-agency/next-iubenda" alt="NPM version" /></a></span>
+<span class="badge-npmdownloads"><a href="https://www.npmjs.com/package/@mep-agency/next-iubenda" title="View this project on NPM"><img src="https://img.shields.io/npm/dt/%40mep-agency/next-iubenda" alt="NPM downloads" /></a></span>
+
 Do you use the [Iubenda](https://www.iubenda.com/)'s Cookie Solution, but have trouble integrating it properly into your Next.js projects? Then this is the tool for you.
 
 Our goal is to create a simple, yet powerful tool to do the following:
