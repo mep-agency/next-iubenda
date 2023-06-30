@@ -136,6 +136,8 @@ export default function Home() {
 If you need more flexibility then you can use the `useIubendaConsent()` hook directly:
 
 ```tsx
+// ./components/ConsentAwareComponent.tsx
+
 'use client';
 
 import { useIubendaConsent } from '@mep-agency/next-iubenda';
