@@ -4,16 +4,16 @@ import styles from './styles.module.scss';
 
 import { CSSProperties, ReactNode, useEffect, useReducer, useState } from 'react';
 
-import { IubendaConsentSolutionContext, useIubendaConsent } from '../../contexts/IubendaConsentSolutionContext';
+import { IubendaContext, useIubenda } from '../../contexts/IubendaContext';
 
 const DEFAULT_WRAPPER_CLASS = 'mep-next-iubenda-wrapper';
 
-type RequiredPurposes = (keyof IubendaConsentSolutionContext['consent']['purposes'])[];
+type RequiredGdprPurposes = (keyof IubendaContext['userPreferences']['gdprPurposes'])[];
 
 interface Props {
   className?: string;
   useDefaultStyles?: boolean;
-  requiredPurposes: RequiredPurposes;
+  requiredGdprPurposes: RequiredGdprPurposes;
   customLoadingNodes?: ReactNode;
   customConsentNotGrantedNodes?: ReactNode;
   style?: CSSProperties;
@@ -23,25 +23,25 @@ interface Props {
 interface StateInterface {
   isLoading: boolean;
   isEnabled: boolean;
-  requiredPurposes: RequiredPurposes;
+  requiredGdprPurposes: RequiredGdprPurposes;
 }
 
-interface UpdateRequiredPurposesActionInterface {
+interface UpdateRequiredGdprPurposesActionInterface {
   type: 'update_required_purposes';
-  requiredPurposes: RequiredPurposes;
+  requiredGdprPurposes: RequiredGdprPurposes;
 }
 
 interface UpdateConsentActionInterface {
   type: 'update_consent';
-  consent: IubendaConsentSolutionContext['consent'];
+  consent: IubendaContext['userPreferences'];
 }
 
-type Action = UpdateRequiredPurposesActionInterface | UpdateConsentActionInterface;
+type Action = UpdateRequiredGdprPurposesActionInterface | UpdateConsentActionInterface;
 
 const initialState: StateInterface = {
   isLoading: true,
   isEnabled: false,
-  requiredPurposes: [],
+  requiredGdprPurposes: [],
 };
 
 const reducer = (state: StateInterface, action: Action): StateInterface => {
@@ -49,14 +49,14 @@ const reducer = (state: StateInterface, action: Action): StateInterface => {
     case 'update_required_purposes':
       return {
         ...state,
-        requiredPurposes: action.requiredPurposes,
+        requiredGdprPurposes: action.requiredGdprPurposes,
       };
     case 'update_consent':
       return {
         ...state,
         isLoading: false,
-        isEnabled: state.requiredPurposes.reduce(
-          (isEnabled, purposeName) => isEnabled && action.consent.purposes[purposeName],
+        isEnabled: state.requiredGdprPurposes.reduce(
+          (isEnabled, purposeName) => isEnabled && action.consent.gdprPurposes[purposeName],
           true,
         ),
       };
@@ -68,26 +68,26 @@ const reducer = (state: StateInterface, action: Action): StateInterface => {
 const ConsentAwareWrapper = ({
   className,
   useDefaultStyles,
-  requiredPurposes,
+  requiredGdprPurposes,
   customLoadingNodes,
   customConsentNotGrantedNodes,
   style,
   children,
 }: Props) => {
-  const { consent, openPreferences, i18nDictionary: t } = useIubendaConsent();
+  const { userPreferences: consent, openPreferences, i18nDictionary: t } = useIubenda();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [computedClassName, setComputedClassName] = useState<string>();
 
   useEffect(() => {
-    if (requiredPurposes.length < 1) {
+    if (requiredGdprPurposes.length < 1) {
       throw new Error('Required purposes array cannot be empty!');
     }
 
     dispatch({
       type: 'update_required_purposes',
-      requiredPurposes,
+      requiredGdprPurposes: requiredGdprPurposes,
     });
-  }, [requiredPurposes]);
+  }, [requiredGdprPurposes]);
 
   useEffect(() => {
     if (consent.hasBeenLoaded === true) {
@@ -96,7 +96,7 @@ const ConsentAwareWrapper = ({
         consent,
       });
     }
-  }, [consent, state.requiredPurposes]);
+  }, [consent, state.requiredGdprPurposes]);
 
   useEffect(() => {
     const classNames: string[] = [DEFAULT_WRAPPER_CLASS];
