@@ -104,7 +104,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Now you can simply wrap any components with the `<ConsentAwareWrapper />`:
+Now you can simply wrap any components with the `<ConsentAwareWrapper />` provided by the library or access the `useIubendaConsent()` directly.
+
+## Writing consent-aware components
+
+In some cases you just need to toggle some components based on some requirments. This can be easily achieved using the `<ConsentAwareWrapper />`.
 
 ```tsx
 // ./app/page.tsx
@@ -118,7 +122,7 @@ export default function Home() {
       {/* ... */}
       <ConsentAwareWrapper requiredPurposes={['experience', 'marketing']}>
         {/* Anything at this level won't be rendered unless the required permissions have been granted */}
-        Both "experience" and "marketing" cookies can be used!
+        Both "experience" and "marketing" cookies can be used here!
       </ConsentAwareWrapper>
       {/* // ... */}
     </main>
@@ -127,7 +131,9 @@ export default function Home() {
 // ...
 ```
 
-If you need more flexibility then you can use the `useIubendaConsent()` hook:
+## Advanced features
+
+If you need more flexibility then you can use the `useIubendaConsent()` hook directly:
 
 ```tsx
 'use client';
