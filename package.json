@@ -2,7 +2,7 @@
   "name": "@mep-agency/next-iubenda",
   "version": "1.0.0-alpha0",
   "private": false,
-  "description": "A React library for integrating Iubenda's cookie solution into Next.js projects",
+  "description": "A React library for integrating Iubenda's Cookie Solution into Next.js projects",
   "source": "src/index.tsx",
   "main": "src/index.tsx",
   "sideEffects": false,

@@ -3,12 +3,13 @@
 import { useEffect } from 'react';
 import Script from 'next/script';
 
-import { useIubendaConsent as useIubendaConsentSolutionContext } from '../contexts/IubendaConsentSolutionContext';
+import { useIubenda } from '../contexts/IubendaContext';
 
+export type BannerVersion = 'beta' | 'current' | 'stable';
 type TcfPurposesKeys = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
 type HexColor = `#${string}`;
 
-export interface IubendaConsentSolutionBannerConfigInterface {
+export interface IubendaCookieSolutionBannerConfigInterface {
   // See https://www.iubenda.com/en/help/1205-how-to-configure-your-cookie-solution-advanced-guide
 
   // Required
@@ -224,38 +225,94 @@ export interface IubendaConsentSolutionBannerConfigInterface {
   startOnDomReady?: boolean;
 }
 
+const validateConfig = (config: IubendaCookieSolutionBannerConfigInterface): void => {
+  if (config.enableGdpr === false && config.enableLgpd === false && config.enableUspr === false) {
+    throw new Error('You must enable at least one of the following flags: "enableGdpr", "enableLgpd" or "enableUspr"');
+  }
+
+  if (config.enableTcf === true && config.enableGdpr !== true) {
+    throw new Error('IAB Transparency and Consent Framework can only be enabled if GDPR is enabled too');
+  }
+
+  // TODO: Remove warnings about incomplete features...
+  if (config.enableLgpd === true) {
+    console.warn(
+      'The support for LGPD is incomplete may not work properly. Please report any issues to help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues',
+    );
+  }
+
+  if (config.enableUspr === true) {
+    console.warn(
+      'The support for the US State laws is incomplete may not work properly. Please report any issues help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues',
+    );
+  }
+
+  if (config.enableTcf === true) {
+    console.warn(
+      'The support for the IAB Transparency and Consent Framework is incomplete may not work properly. Please report any issues help us finalizing this feature: https://github.com/mep-agency/next-iubenda/issues',
+    );
+  }
+};
+
 interface Props {
-  config: IubendaConsentSolutionBannerConfigInterface;
+  config: IubendaCookieSolutionBannerConfigInterface;
+  version: BannerVersion;
 }
 
-const IubendaConsentSolutionBanner = ({ config }: Props) => {
-  const { dispatchConsent } = useIubendaConsentSolutionContext();
+const IubendaCookieSolutionBanner = ({ config, version }: Props) => {
+  const { dispatchUserPreferences } = useIubenda();
+  const versionPath = version === 'current' ? '' : `/${version}`;
 
   useEffect(() => {
+    validateConfig(config);
+
     (window as any)._iub = (window as any)._iub || [];
     (window as any)._iub.csConfiguration = config;
     (window as any)._iub.csConfiguration.callback = {
-      onPreferenceExpressedOrNotNeeded: function (preference: any) {
-        if (!preference) {
-          dispatchConsent({ type: 'not_needed' });
+      onPreferenceExpressedOrNotNeeded: function (preferences: any) {
+        // TODO: Figure out what the "preferences.consent" property really means since it's behavior is not documented.
+
+        if (!preferences) {
+          dispatchUserPreferences({ type: 'consent_not_needed' });
 
           return;
         } else {
-          dispatchConsent({
+          dispatchUserPreferences({
             type: 'update',
-            rawData: preference,
+            rawData: preferences,
           });
         }
       },
     };
-  }, [config, dispatchConsent]);
+  }, [config, dispatchUserPreferences]);
 
   return (
     <>
-      <Script key="iubenda_stub" src="//cdn.iubenda.com/cs/gpp/stub.js" type="text/javascript" />
-      <Script key="iubenda_cs" src="//cdn.iubenda.com/cs/iubenda_cs.js" type="text/javascript" async />
+      {/* Scripts for IAB Transparency and Consent Framework */}
+      {config.enableTcf === true ? (
+        <>
+          <Script key="iubenda_tcf" src={`//cdn.iubenda.com/cs/tcf${versionPath}/stub-v2.js`} type="text/javascript" />
+          <Script
+            key="iubenda_safe_tcf"
+            src={`//cdn.iubenda.com/cs/tcf${versionPath}/safe-tcf-v2.js`}
+            type="text/javascript"
+          />
+        </>
+      ) : (
+        <></>
+      )}
+
+      {/* Scripts for US State laws */}
+      {config.enableUspr === true ? (
+        <Script key="iubenda_gpp" src={`//cdn.iubenda.com/cs/gpp${versionPath}/stub.js`} type="text/javascript" />
+      ) : (
+        <></>
+      )}
+
+      {/* Scripts for basic Consent Solution */}
+      <Script key="iubenda_cs" src={`//cdn.iubenda.com/cs${versionPath}/iubenda_cs.js`} type="text/javascript" async />
     </>
   );
 };
 
-export default IubendaConsentSolutionBanner;
+export default IubendaCookieSolutionBanner;
