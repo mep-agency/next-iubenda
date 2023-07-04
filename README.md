@@ -152,7 +152,7 @@ const ConsentAwareComponent = () => {
      */
     dispatchUserPreferences, // Update the user preferences data across the app
     i18nDictionary, // Contains the translations for the built-in components
-  } = useIubendaConsent();
+  } = useIubenda();
 
   return (
     <div>

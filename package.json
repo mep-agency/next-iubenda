@@ -7,6 +7,8 @@
   "main": "src/index.tsx",
   "sideEffects": false,
   "scripts": {
+    "build": "yarn sass --no-source-map src/components/ConsentAwareWrapper/styles.module.scss src/components/ConsentAwareWrapper/styles.module.css",
+    "watch": "yarn sass --watch --no-source-map src/components/ConsentAwareWrapper/styles.module.scss src/components/ConsentAwareWrapper/styles.module.css",
     "lint": "eslint \"**/*.{ts,tsx,js}\" && prettier --check \"**/*.{ts,tsx,md,scss,css,js}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md,scss,css,js}\""
   },
@@ -49,5 +51,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "sass": "^1.63.6"
   }
 }

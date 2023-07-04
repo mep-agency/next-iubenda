@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './styles.module.scss';
+import styles from './styles.module.css';
 
 import { CSSProperties, ReactNode, useEffect, useReducer, useState } from 'react';
 
