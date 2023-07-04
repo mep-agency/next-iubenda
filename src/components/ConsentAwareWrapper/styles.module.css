@@ -20,7 +20,8 @@
     --btn-bg-color-hover: #334155;
   }
 }
-.wrapper > :global(.mep-next-iubenda-loading), .wrapper > :global(.mep-next-iubenda-consent-not-granted) {
+.wrapper > :global(.mep-next-iubenda-loading),
+.wrapper > :global(.mep-next-iubenda-consent-not-granted) {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,14 +34,16 @@
   background-color: var(--bg-color);
   border: 1px solid var(--box-border-color);
 }
-.wrapper > :global(.mep-next-iubenda-loading) button, .wrapper > :global(.mep-next-iubenda-consent-not-granted) button {
+.wrapper > :global(.mep-next-iubenda-loading) button,
+.wrapper > :global(.mep-next-iubenda-consent-not-granted) button {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   color: var(--btn-color);
   border-radius: 0.375rem;
   background-color: var(--btn-bg-color);
 }
-.wrapper > :global(.mep-next-iubenda-loading) button:hover, .wrapper > :global(.mep-next-iubenda-consent-not-granted) button:hover {
+.wrapper > :global(.mep-next-iubenda-loading) button:hover,
+.wrapper > :global(.mep-next-iubenda-consent-not-granted) button:hover {
   color: var(--btn-color-hover);
   background-color: var(--btn-bg-color-hover);
 }
