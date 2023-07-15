@@ -28,9 +28,11 @@
     "next",
     "next.js",
     "react",
-    "redirect",
-    "link",
-    "router"
+    "privacy-policy",
+    "cookie-policy",
+    "gdpr",
+    "consent-management",
+    "iubenda"
   ],
   "author": "Marco Lipparini <developer@liarco.net>",
   "license": "MIT",
