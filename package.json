@@ -3,6 +3,25 @@
   "version": "1.0.0-alpha3",
   "private": false,
   "description": "A React library for integrating Iubenda's Cookie Solution into Next.js projects",
+  "author": "Marco Lipparini <developer@liarco.net>",
+  "license": "MIT",
+  "keywords": [
+    "next",
+    "next.js",
+    "react",
+    "privacy policy",
+    "cookie policy",
+    "gdpr",
+    "consent management",
+    "iubenda"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mep-agency/next-iubenda.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mep-agency/next-iubenda/issues"
+  },
   "source": "src/index.tsx",
   "main": "src/index.tsx",
   "sideEffects": false,
@@ -19,25 +38,6 @@
   ],
   "exports": {
     ".": "./src/index.tsx"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mep-agency/next-iubenda.git"
-  },
-  "keywords": [
-    "next",
-    "next.js",
-    "react",
-    "privacy policy",
-    "cookie policy",
-    "gdpr",
-    "consent management",
-    "iubenda"
-  ],
-  "author": "Marco Lipparini <developer@liarco.net>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mep-agency/next-iubenda/issues"
   },
   "peerDependencies": {
     "next": ">= 13.0.0",
