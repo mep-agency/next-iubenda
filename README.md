@@ -19,14 +19,14 @@ Our goal is to create a simple, yet powerful tool to do the following:
 
 This package gives you these features with minimal effort and an extremely small footprint on your codebase.
 
-# Missing features
+## Missing features
 
 - **Support to regulations other than the European GDPR**  
   Iubenda does a great job of supporting many regulations and helping developers make sure their websites/apps can be compliant worldwide. But this tool is currently limited to the European GDPR because that's what we know best. **Any help in adding support for additional features is appreciated.**
 - **Shipping the package as pre-compiled**  
   Currently, this package is shipped as plain TypeScript files. While this doesn't seem to be a problem and may allow Next.js to better optimize the code, it requires the "transpilePackages" option to be enabled for this package, which may not be ideal. **Any suggestions/contributions in this regard are appreciated.**
 
-# Project lifecycle, contribution and support policy
+## Project lifecycle, contribution and support policy
 
 Our policies are available on our [main oranization page](https://github.com/mep-agency#projects-lifecycle-contribution-and-support-policy).
 
