@@ -307,6 +307,7 @@ const IubendaCookieSolutionBanner = ({ config, version }: Props) => {
             type: 'update',
             rawData: preferences,
           });
+          if(callback.onPreferenceExpressedOrNotNeeded) callback.onPreferenceExpressedOrNotNeeded(preferences);
         }
       },
     });
