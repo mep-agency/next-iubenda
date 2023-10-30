@@ -178,6 +178,7 @@ export interface IubendaCookieSolutionBannerConfigInterface {
   // Privacy and cookie policy
   privacyPolicyUrl?: string;
   cookiePolicyUrl?: string;
+  privacyPolicyNoticeAtCollectionUrl?: string;
   cookiePolicyInOtherWindow?: boolean;
 
   // Advanced settings
