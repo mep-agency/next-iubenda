@@ -196,7 +196,31 @@ export interface IubendaCookieSolutionBannerConfigInterface {
   rebuildIframe?: boolean;
 
   // Development > Callbacks
-  // Custom callbacks are not supported by the IubendaConsentContext.
+  callback?: {
+    onReady?: () => void;
+    onBannerShown?: () => void;
+    onBannerClosed?: () => void;
+    onCookiePolicyShown?: () => void;
+    onConsentGiven?: () => void;
+    onConsentFirstGiven?: () => void;
+    onConsentRejected?: () => void;
+    onConsentFirstRejected?: () => void;
+    onPreferenceExpressed?: () => void;
+    onPreferenceFirstExpressed?: () => void;
+    onPreferenceExpressedOrNotNeeded?: (preferences: any) => void;
+    onPreferenceNotNeeded?: () => void;
+    onConsentRead?: () => void;
+    onStartupFailed?: (error: string) => void;
+    onError?: (error: string) => void;
+    onFatalError?: (error: string) => void;
+    onActivationDone?: () => void;
+    onBeforePreload?: () => void;
+    onCcpaAcknowledged?: () => void;
+    onCcpaFirstAcknowledged?: () => void;
+    onCcpaOptOut?: () => void;
+    onCcpaFirstOptOut?: () => void;
+    on2ndLayerShown?: () => void;
+  },
 
   // Development > Debugging
   skipSaveConsent?: boolean;
@@ -269,22 +293,25 @@ const IubendaCookieSolutionBanner = ({ config, version }: Props) => {
 
     (window as any)._iub = (window as any)._iub || [];
     (window as any)._iub.csConfiguration = config;
-    (window as any)._iub.csConfiguration.callback = {
+
+    const callback = config.callback || {};
+    (window as any)._iub.csConfiguration.callback = Object.assign(callback, {
       onPreferenceExpressedOrNotNeeded: function (preferences: any) {
         // TODO: Figure out what the "preferences.consent" property really means since it's behavior is not documented.
 
         if (!preferences) {
           dispatchUserPreferences({ type: 'consent_not_needed' });
-
+          if(callback.onPreferenceExpressedOrNotNeeded) callback.onPreferenceExpressedOrNotNeeded(preferences);
           return;
         } else {
           dispatchUserPreferences({
             type: 'update',
             rawData: preferences,
           });
+          if(callback.onPreferenceExpressedOrNotNeeded) callback.onPreferenceExpressedOrNotNeeded(preferences);
         }
       },
-    };
+    });
   }, [config, dispatchUserPreferences]);
 
   return (
