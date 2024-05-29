@@ -267,24 +267,32 @@ const IubendaCookieSolutionBanner = ({ config, version }: Props) => {
   useEffect(() => {
     validateConfig(config);
 
-    (window as any)._iub = (window as any)._iub || [];
-    (window as any)._iub.csConfiguration = config;
-    (window as any)._iub.csConfiguration.callback = {
-      onPreferenceExpressedOrNotNeeded: function (preferences: any) {
-        // TODO: Figure out what the "preferences.consent" property really means since it's behavior is not documented.
+    const _iub = ((window as any)._iub = (window as any)._iub || []);
 
-        if (!preferences) {
-          dispatchUserPreferences({ type: 'consent_not_needed' });
+    if (_iub.csReady && _iub.cs?.api.isPreferenceExpressed()) {
+      dispatchUserPreferences({
+        type: 'update',
+        rawData: _iub.cs.consent,
+      });
+    } else {
+      _iub.csConfiguration = config;
+      _iub.csConfiguration.callback = {
+        onPreferenceExpressedOrNotNeeded: function (preferences: any) {
+          // TODO: Figure out what the "preferences.consent" property really means since it's behavior is not documented.
 
-          return;
-        } else {
-          dispatchUserPreferences({
-            type: 'update',
-            rawData: preferences,
-          });
-        }
-      },
-    };
+          if (!preferences) {
+            dispatchUserPreferences({ type: 'consent_not_needed' });
+
+            return;
+          } else {
+            dispatchUserPreferences({
+              type: 'update',
+              rawData: preferences,
+            });
+          }
+        },
+      };
+    }
   }, [config, dispatchUserPreferences]);
 
   return (
